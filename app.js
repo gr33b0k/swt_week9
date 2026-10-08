@@ -7,6 +7,15 @@ export default (express, puppeteer) => {
       "Access-Control-Allow-Methods",
       "GET,POST,PUT,PATCH,OPTIONS,DELETE",
     );
+    res.setHeader("Access-Control-Allow-Headers", "ngrok-skip-browser-warning");
+    next();
+  });
+
+  app.use((req, res, next) => {
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(204);
+    }
+
     next();
   });
 
